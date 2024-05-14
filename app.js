@@ -1,6 +1,7 @@
 const bodparser = require("body-parser");
 const mongoose = require("mongoose");
 const express = require("express");
+const UserController = require("./controller/userController");
 require("dotenv").config();
 
 const uri = process.env.URI;
@@ -17,6 +18,18 @@ app.use(bodparser.urlencoded({ extended: false }));
 
 app.get("/api", async (req, res) => {
   res.send("hai ngapai kesini?");
+});
+
+app.get("/api/user", async (req, res) => {
+  UserController.getAllUsers(req, res);
+});
+
+app.get("/api/user/:id", async (req, res) => {
+  UserController.getUserById(req, res);
+});
+
+app.post("/api/register", async (req, res) => {
+  UserController.createUser(req, res);
 });
 
 app.listen(port, () => {
